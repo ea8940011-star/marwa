@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:investra/core/styles/colors.dart';
 
-class buildSettingsItem extends StatelessWidget {
-  const buildSettingsItem({
+class CustomSettingsToggle extends StatelessWidget {
+  final Widget icon;
+  final String title;
+  final String subtitle;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const CustomSettingsToggle({
     super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
-    this.subtitleColor,
+    required this.value,
+    required this.onChanged,
   });
-
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final Color? subtitleColor;
 
   @override
   Widget build(BuildContext context) {
@@ -28,17 +30,18 @@ class buildSettingsItem extends StatelessWidget {
             color: AppColors.bgGray,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: AppColors.grayColor),
+          child: icon,
         ),
         title: Text(title, style: const TextStyle(fontWeight: FontWeight.w600)),
         subtitle: Text(
           subtitle,
-          style: TextStyle(
-            color: subtitleColor ?? AppColors.gray2Color,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: AppColors.gray2Color, fontSize: 12),
         ),
-        trailing: const Icon(Icons.chevron_right, color: AppColors.gray2Color),
+        trailing: Switch(
+          value: value,
+          onChanged: onChanged,
+          activeColor: AppColors.primaryColor,
+        ),
       ),
     );
   }

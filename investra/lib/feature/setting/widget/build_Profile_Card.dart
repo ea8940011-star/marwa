@@ -19,7 +19,7 @@ class BuildProfileCard extends StatelessWidget {
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: Image.network(
-                  'https://via.placeholder.com/80',
+                  'https://i.pinimg.com/736x/a4/be/2d/a4be2d9b169649eae96098785afad294.jpg',
                   width: 80,
                   height: 80,
                   fit: BoxFit.cover,
@@ -64,7 +64,7 @@ class BuildProfileCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 const Text(
-                  'ent',
+                  'programmer',
                   style: TextStyle(color: AppColors.gray2Color),
                   overflow: TextOverflow.ellipsis,
                 ),

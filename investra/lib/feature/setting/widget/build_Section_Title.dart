@@ -15,7 +15,7 @@ class buildSectionTitle extends StatelessWidget {
         style: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.bold,
-          color: AppColors.gray2Color,
+          color: AppColors.blackColor,
           letterSpacing: 1.2,
         ),
       ),

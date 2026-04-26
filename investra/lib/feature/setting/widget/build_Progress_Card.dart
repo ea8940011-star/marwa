@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:investra/core/constants/app_images.dart';
 import 'package:investra/core/styles/colors.dart';
 
 class buildProgressCard extends StatelessWidget {
@@ -17,14 +19,21 @@ class buildProgressCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Idea Submission Limit',
-                style: TextStyle(color: AppColors.bgColor),
+                style: TextStyle(color: AppColors.bgColor, fontSize: 17),
               ),
-              Icon(Icons.lightbulb_outline, color: AppColors.gray2Color),
+
+              SvgPicture.asset(
+                AppImages.idea2Svg,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.bgGray,
+                  BlendMode.srcIn,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 8),
@@ -36,20 +45,20 @@ class buildProgressCard extends StatelessWidget {
                 '1',
                 style: TextStyle(
                   color: AppColors.bgColor,
-                  fontSize: 32,
+                  fontSize: 36,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 ' / 2 ideas used',
-                style: TextStyle(color: AppColors.bgGray),
+                style: TextStyle(color: AppColors.bgGray, fontSize: 17),
               ),
             ],
           ),
           const SizedBox(height: 16),
           LinearProgressIndicator(
             value: 0.5,
-            backgroundColor: AppColors.blackColor,
+            backgroundColor: AppColors.darkGray,
             valueColor: const AlwaysStoppedAnimation<Color>(
               AppColors.submissionColor,
             ),
