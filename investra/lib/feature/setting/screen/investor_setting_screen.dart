@@ -21,10 +21,10 @@ class _AccountScreenState extends State<AccountScreen> {
         backgroundColor: AppColors.bgColor,
         elevation: 0,
         title: const Text(
-          'Investra',
+          ' Investra',
           style: TextStyle(
             color: AppColors.primaryColor,
-            fontSize: 20,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -53,7 +53,7 @@ class _AccountScreenState extends State<AccountScreen> {
             padding: EdgeInsets.only(right: 16),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                'https://i.pinimg.com/1200x/16/93/9d/16939d659f92b59f707bf54d409435eb.jpg',
+                'https://i.pinimg.com/736x/0d/4d/92/0d4d92723d87114f2e33e57456deb3e0.jpg',
               ),
             ),
           ),
@@ -104,9 +104,7 @@ class _AccountScreenState extends State<AccountScreen> {
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.blackColor.withValues(
-                            alpha: 0.05,
-                          ), // 🔹 ظل ناعم جداً
+                          color: AppColors.blackColor.withValues(alpha: 0.05),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -115,7 +113,6 @@ class _AccountScreenState extends State<AccountScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        // صورة الملف الشخصي
                         Stack(
                           alignment: Alignment.bottomRight,
                           children: [
@@ -128,7 +125,6 @@ class _AccountScreenState extends State<AccountScreen> {
                                 fit: BoxFit.cover,
                               ),
                             ),
-                            // أيقونة التعديل
                             Container(
                               padding: const EdgeInsets.all(4),
                               decoration: BoxDecoration(
@@ -148,8 +144,6 @@ class _AccountScreenState extends State<AccountScreen> {
                           ],
                         ),
                         const SizedBox(height: 16),
-
-                        // الاسم
                         const Text(
                           "Esraa Alaa",
                           style: TextStyle(
@@ -160,7 +154,6 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         const SizedBox(height: 4),
 
-                        // الإيميل
                         Text(
                           "ea8940011@gmail.com",
                           style: TextStyle(
@@ -174,17 +167,15 @@ class _AccountScreenState extends State<AccountScreen> {
                           padding: const EdgeInsets.symmetric(
                             horizontal: 24,
                             vertical: 10,
-                          ), // 🔹 حشو داخلي فقط
+                          ),
                           decoration: BoxDecoration(
-                            color: const Color(
-                              0xFFB2FFB2,
-                            ), // 🔹 اللون الأخضر الفاتح من الصورة
+                            color: const Color(0xFFB2FFB2),
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: const Text(
                             "ELITE TIER MEMBER",
                             style: TextStyle(
-                              color: Color(0xFF2E7D32), // 🔹 نص أخضر غامق
+                              color: Color(0xFF2E7D32),
                               fontWeight: FontWeight.bold,
                               fontSize: 11,
                               letterSpacing: 0.5,
@@ -252,8 +243,6 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
                 const SizedBox(height: 35),
 
-                /// 🔹 Account Management Section
-                /// 🔹 Account Management Section
                 Row(
                   children: [
                     SvgPicture.asset(
@@ -279,7 +268,6 @@ class _AccountScreenState extends State<AccountScreen> {
 
                 const SizedBox(height: 15),
 
-                // تصحيح الـ Container هنا
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
@@ -305,7 +293,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           style: TextStyle(fontWeight: FontWeight.w500),
                         ),
                         trailing: Transform.scale(
-                          scale: 0.8, // لتصغير حجم الزر نفسه
+                          scale: 0.8,
                           child: Switch(
                             value: true,
                             onChanged: (val) {},

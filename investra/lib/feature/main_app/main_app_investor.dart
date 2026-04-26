@@ -2,48 +2,39 @@
 // import 'package:investra/core/constants/app_images.dart';
 // import 'package:investra/core/styles/colors.dart';
 // import 'package:investra/core/widgets/custom_svg_picture.dart';
+// import 'package:investra/feature/home_page/screens/enterepreneur_home.dart';
+// import 'package:investra/feature/home_page/screens/investor_home.dart';
 // import 'package:investra/feature/setting/screen/entrepreneur_setting_screen.dart';
 // import 'package:investra/feature/setting/screen/investor_setting_screen.dart';
 
-// // تأكدي من استيراد كل الشاشات بشكل صحيح هنا
-// // import 'package:investra/feature/home/home_screen.dart';
-// // import 'package:investra/feature/ai_chat/ai_chatbot_screen.dart';
-// // import 'package:investra/feature/account/account_screen.dart';
-
-// // 1. هذا الجزء كان ناقصاً في الكود الخاص بكِ (كلاس الـ Widget)
-// class MainAppScreen extends StatefulWidget {
-//   const MainAppScreen({super.key, this.selectedIndex});
+// class MainAppInvestorScreen extends StatefulWidget {
+//   const MainAppInvestorScreen({super.key, this.selectedIndex});
 //   final int? selectedIndex;
 
 //   @override
-//   State<MainAppScreen> createState() => MainAppScreenState();
+//   State<MainAppInvestorScreen> createState() => MainAppScreenState();
 // }
 
-// // 2. كلاس الـ State
-// class MainAppScreenState extends State<MainAppScreen> {
+// class MainAppScreenState extends State<MainAppInvestorScreen> {
 //   int currentIndex = 0;
 
 //   @override
 //   void initState() {
 //     super.initState();
-//     // استخدام widget. للوصول لبيانات الكلاس الأساسي
 //     currentIndex = widget.selectedIndex ?? 0;
 //   }
 
-//   // قائمة الشاشات
-//   // ملاحظة: تأكدي أن الأسماء (HomeScreen, AccountScreen...) تطابق أسماء الكلاسات في ملفاتها
 //   final List<Widget> screens = [
-//     const Center(
-//       child: Text("Home"),
-//     ), // استبدليها بـ const HomeScreen() بعد الـ import
-//     const Center(child: Text("Chat")), // استبدليها بـ const AIChatbotScreen()
-//     const SettingsScreen(), // استبدليها بـ const SearchScreen()
-//     const AccountScreen(), // الشاشة التي صممناها
+//     const InvestorHomePage(),
+//     const Center(child: Text("Chat")),
+//     const SettingsScreen(),
+//     const AccountScreen(),
 //   ];
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
+//       backgroundColor: AppColors.bgColor,
 //       body: IndexedStack(index: currentIndex, children: screens),
 //       bottomNavigationBar: _bottomNavBar(),
 //     );
@@ -51,6 +42,7 @@
 
 //   BottomNavigationBar _bottomNavBar() {
 //     return BottomNavigationBar(
+//       backgroundColor: Colors.white,
 //       currentIndex: currentIndex,
 //       onTap: (index) {
 //         setState(() {
@@ -60,6 +52,7 @@
 //       type: BottomNavigationBarType.fixed,
 //       selectedItemColor: AppColors.primaryColor,
 //       unselectedItemColor: AppColors.grayColor,
+//       elevation: 0,
 //       showSelectedLabels: true,
 //       showUnselectedLabels: true,
 //       selectedFontSize: 12,
@@ -101,61 +94,82 @@
 //     );
 //   }
 // }
-
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:investra/core/constants/app_images.dart';
 import 'package:investra/core/styles/colors.dart';
 import 'package:investra/core/widgets/custom_svg_picture.dart';
+import 'package:investra/feature/home_page/screens/investor_home.dart';
 import 'package:investra/feature/setting/screen/entrepreneur_setting_screen.dart';
 import 'package:investra/feature/setting/screen/investor_setting_screen.dart';
 
-// تأكدي من فك التعليق (Uncomment) عن الاستيرادات أدناه عندما تجهز الملفات
-// import 'package:investra/feature/home/home_screen.dart';
-// import 'package:investra/feature/ai_chat/ai_chatbot_screen.dart';
-// import 'package:investra/feature/account/account_screen.dart';
-// import 'package:investra/feature/setting/screen/settings_screen.dart';
-
-class MainAppScreen extends StatefulWidget {
-  const MainAppScreen({super.key, this.selectedIndex});
+class MainAppInvestorScreen extends StatefulWidget {
+  const MainAppInvestorScreen({super.key, this.selectedIndex});
   final int? selectedIndex;
 
   @override
-  State<MainAppScreen> createState() => MainAppScreenState();
+  State<MainAppInvestorScreen> createState() => MainAppScreenState();
 }
 
-class MainAppScreenState extends State<MainAppScreen> {
+class MainAppScreenState extends State<MainAppInvestorScreen> {
   int currentIndex = 0;
+  late ScrollController _scrollController;
+  bool _isVisible = true;
 
   @override
   void initState() {
     super.initState();
-    // تعيين الشاشة الابتدائية بناءً على القيمة الممرة أو الافتراضية (0)
     currentIndex = widget.selectedIndex ?? 0;
+    _scrollController = ScrollController();
+    _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        if (_isVisible) {
+          setState(() {
+            _isVisible = false;
+          });
+        }
+      } else if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        if (!_isVisible) {
+          setState(() {
+            _isVisible = true;
+          });
+        }
+      }
+    });
   }
 
-  // قائمة الشاشات التي يتم التنقل بينها
-  final List<Widget> screens = [
-    const Center(
-      child: Text("Home"),
-    ), // استبدليها بـ const HomeScreen() بعد الـ import
-    const Center(child: Text("Chat")), // استبدليها بـ const AIChatbotScreen()
-    const SettingsScreen(), // استبدليها بـ const SearchScreen()
-    const AccountScreen(), // استبدلي بـ AccountScreen() التي صممناها
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  late final List<Widget> screens = [
+    InvestorHomePage(scrollController: _scrollController),
+    const Center(child: Text("Chat")),
+    const SettingsScreen(),
+    const AccountScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // 🔹 جعل خلفية الصفحة بيضاء بالكامل
       backgroundColor: AppColors.bgColor,
       body: IndexedStack(index: currentIndex, children: screens),
-      bottomNavigationBar: _bottomNavBar(),
+      bottomNavigationBar: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        height: _isVisible
+            ? kBottomNavigationBarHeight + MediaQuery.of(context).padding.bottom
+            : 0,
+        child: Wrap(children: [_bottomNavBar()]),
+      ),
     );
   }
 
   BottomNavigationBar _bottomNavBar() {
     return BottomNavigationBar(
-      // 🔹 جعل خلفية شريط التنقل بيضاء لتندمج مع الصفحة
       backgroundColor: Colors.white,
       currentIndex: currentIndex,
       onTap: (index) {
@@ -166,7 +180,6 @@ class MainAppScreenState extends State<MainAppScreen> {
       type: BottomNavigationBarType.fixed,
       selectedItemColor: AppColors.primaryColor,
       unselectedItemColor: AppColors.grayColor,
-      // 🔹 إزالة الظل (الخط الفاصل) لجعل التصميم انسيابي وأبيض بالكامل
       elevation: 0,
       showSelectedLabels: true,
       showUnselectedLabels: true,
@@ -182,6 +195,14 @@ class MainAppScreenState extends State<MainAppScreen> {
           label: 'Home',
         ),
         BottomNavigationBarItem(
+          icon: CustomSvgPicture(path: AppImages.chatSvg),
+          activeIcon: CustomSvgPicture(
+            path: AppImages.chatSvg,
+            color: AppColors.primaryColor,
+          ),
+          label: 'Chat',
+        ),
+        BottomNavigationBarItem(
           icon: CustomSvgPicture(path: AppImages.aichatbotSvg),
           activeIcon: CustomSvgPicture(
             path: AppImages.aichatbotSvg,
@@ -189,14 +210,7 @@ class MainAppScreenState extends State<MainAppScreen> {
           ),
           label: 'AI Chatbot',
         ),
-        BottomNavigationBarItem(
-          icon: CustomSvgPicture(path: AppImages.searchSvg),
-          activeIcon: CustomSvgPicture(
-            path: AppImages.searchSvg,
-            color: AppColors.primaryColor,
-          ),
-          label: 'Search',
-        ),
+
         BottomNavigationBarItem(
           icon: CustomSvgPicture(path: AppImages.profileSvg),
           activeIcon: CustomSvgPicture(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:investra/feature/main_app/main_app_screen.dart';
-import 'package:investra/feature/setting/screen/entrepreneur_setting_screen.dart';
-import 'package:investra/feature/setting/screen/investor_setting_screen.dart';
+import 'package:investra/feature/main_app/main_app_enterpreneur.dart';
+import 'package:investra/feature/main_app/main_app_investor.dart';
 
 void main() {
   runApp(const MainApp());
@@ -14,7 +13,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MainAppScreen(),
+      home: const MainAppEnterpreneurScreen(),
     );
   }
 }
