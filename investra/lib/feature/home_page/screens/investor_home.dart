@@ -14,17 +14,14 @@ class InvestorHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
-    final double horizontalPadding = screenWidth * 0.04;
+    final double horizontalPadding = screenWidth * 0.05;
 
     return Scaffold(
       backgroundColor: AppColors.secondary2Color,
       appBar: AppBar(
-        primary: true,
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.bgColor,
         elevation: 0,
-        leadingWidth: 50,
-
         title: const Text(
           ' Investra',
           style: TextStyle(
@@ -38,7 +35,7 @@ class InvestorHomePage extends StatelessWidget {
             onPressed: () {},
             icon: SvgPicture.asset(
               AppImages.notificationSvg,
-              colorFilter: ColorFilter.mode(
+              colorFilter: const ColorFilter.mode(
                 AppColors.primaryColor,
                 BlendMode.srcIn,
               ),
@@ -48,61 +45,63 @@ class InvestorHomePage extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: NotificationListener<OverscrollIndicatorNotification>(
-          onNotification: (overscroll) {
-            overscroll.disallowIndicator();
-            return true;
-          },
-          child: SingleChildScrollView(
-            physics: const ClampingScrollPhysics(),
-            controller: scrollController,
-            child: Padding(
-              // ... المحتوى الخاص بك
-              padding: EdgeInsets.symmetric(
-                horizontal: horizontalPadding,
-                vertical: 12,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const BuildSearchBar(),
-                  const SizedBox(height: 14),
-                  const BuildFilters(),
-                  const SizedBox(height: 22),
-                  const Text(
-                    'Investment Opportunities',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.primaryColor,
-                    ),
+        child: SingleChildScrollView(
+          // 1. التأكد من ربط الـ controller
+          controller: scrollController,
+
+          // 2. تصحيح الـ physics لضمان إرسال الإشعارات بسلاسة
+          // استخدمي AlwaysScrollableScrollPhysics لضمان عمل التمرير حتى لو المحتوى قصير
+          physics: const AlwaysScrollableScrollPhysics(
+            parent: BouncingScrollPhysics(), // تعطيكِ شعور مرن أثناء التمرير
+          ),
+
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: horizontalPadding,
+              vertical: 12,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const BuildSearchBar(),
+                const SizedBox(height: 14),
+                const BuildFilters(),
+                const SizedBox(height: 22),
+                const Text(
+                  'Investment Opportunities',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    color: AppColors.primaryColor,
                   ),
-                  const SizedBox(height: 18),
-                  const BuildPostcard(
-                    category: 'TECHNOLOGY',
-                    title: 'Bridging idea with investments',
-                    description:
-                        'Investra is a smart mobile application that connects entrepreneurs with investors through a secure and structured platform. It enables users to present ideas, explore opportunities, and communicate efficiently.',
-                    members: '+12',
-                  ),
-                  const SizedBox(height: 16),
-                  const BuildPostcard(
-                    category: 'FINTECH',
-                    title: 'ZenLedger AI',
-                    description:
-                        'Automated micro-investing platform that uses AI to analyze your spending habits and invest spare change into diversified portfolios.',
-                    members: '+8',
-                  ),
-                  const SizedBox(height: 16),
-                  const BuildPostcard(
-                    category: 'HEALTHTECH',
-                    title: 'NeuroSync Wearable',
-                    description:
-                        'Next-gen EEG headband that provides real-time biofeedback to optimize sleep cycles and reduce cortisol levels through sonic therapy.',
-                    members: '+15',
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 18),
+                const BuildPostcard(
+                  category: 'TECHNOLOGY',
+                  title: 'Bridging idea with investments',
+                  description:
+                      'Investra is a smart mobile application that connects entrepreneurs with investors.',
+                  members: '+12',
+                ),
+                const SizedBox(height: 16),
+                const BuildPostcard(
+                  category: 'FINTECH',
+                  title: 'ZenLedger AI',
+                  description:
+                      'Automated micro-investing platform that uses AI to analyze spending habits.',
+                  members: '+8',
+                ),
+                const SizedBox(height: 16),
+                const BuildPostcard(
+                  category: 'HEALTHTECH',
+                  title: 'NeuroSync Wearable',
+                  description:
+                      'Next-gen EEG headband that provides real-time biofeedback.',
+                  members: '+15',
+                ),
+                // 3. مساحة إضافية مهمة جداً لضمان القدرة على التمرير واختفاء الشريط
+                const SizedBox(height: 120),
+              ],
             ),
           ),
         ),

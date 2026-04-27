@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:investra/feature/home_page/screens/investor_home.dart';
 import 'package:investra/feature/main_app/main_app_enterpreneur.dart';
 import 'package:investra/feature/main_app/main_app_investor.dart';
 
@@ -13,7 +14,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const MainAppEnterpreneurScreen(),
+      home: const MainAppInvestorScreen(),
     );
   }
 }
